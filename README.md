@@ -43,7 +43,6 @@
 			rails g devise:views
 
 	===============================================================================
-	kaplan@kaplan-VirtualBox:/media/sf_SharedFolder/DeviseSample$ 
 
 	```
 
@@ -60,4 +59,7 @@
 	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 	```
 
-4. .
+4. Run following command to generate the ```User``` model and automatically configure ```config/routes.rb```
+	```Ruby
+	rails generate devise User
+	```
