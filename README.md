@@ -47,8 +47,16 @@
 
 	```
 
+	Briefly above statements say those:
+	1. You have to arrange default_url_options in production enviroment
+	2. In order to route to somewhere after successful login you myst have a "root_url"
+	3. In order to display devise messages, ensure your views have "notice" and "alert" flash messages.
+	4. You can use devise templates by running command ```rails g devise:views```
+
+
 3. Go to ```config/environments/development.rb``` and set the mailer configurations. Possible configurations can be like:
 	```Ruby
+	# Devise related configuration
 	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 	```
 
