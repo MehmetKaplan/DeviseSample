@@ -68,4 +68,12 @@
 	devise_for :users
 	```
 
-5. .
+5. The generated model is as follows. Here you can add/remove Devise's modules (abilities). For the definition of these abilities refer to http://devise.plataformatec.com.br/. 
+	```Ruby
+	class User < ApplicationRecord
+		# Include default devise modules. Others available are:
+		# :confirmable, :lockable, :timeoutable and :omniauthable
+		devise :database_authenticatable, :registerable,
+				:recoverable, :rememberable, :trackable, :validatable
+	end
+	```
