@@ -3,7 +3,7 @@
 1. Install the related gem:
 
 	```Ruby
-	gem 'devise'
+	gem 'devise' 
 	```
 	```Ruby
 	bundle install
