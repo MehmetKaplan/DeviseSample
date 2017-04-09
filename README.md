@@ -6,4 +6,5 @@
 	gem 'devise'
 	```
 	```Ruby
-	bundle install ```
+	bundle install
+	```
