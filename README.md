@@ -59,7 +59,13 @@
 	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 	```
 
-4. Run following command to generate the ```User``` model and automatically configure ```config/routes.rb```
+4. Run following command to generate the ```User``` model. 
 	```Ruby
 	rails generate devise User
 	```
+	This command also automatically adds following line to ```config/routes.rb```:
+	```Ruby
+	devise_for :users
+	```
+
+5. .
