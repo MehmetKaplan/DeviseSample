@@ -11,10 +11,7 @@
 
 2. Generate devise objects
 	```Ruby
-	rails generate devise:install
-	```
-	```Devise
-	kaplan@kaplan-VirtualBox:/media/sf_SharedFolder/DeviseSample$ rails generate devise:install
+	$ rails generate devise:install
 	Running via Spring preloader in process 5627
 			create  config/initializers/devise.rb
 			create  config/locales/devise.en.yml
@@ -49,3 +46,10 @@
 	kaplan@kaplan-VirtualBox:/media/sf_SharedFolder/DeviseSample$ 
 
 	```
+
+3. Go to ```config/environments/development.rb``` and set the mailer configurations. Possible configurations can be like:
+	```Ruby
+	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+	```
+
+4. .
