@@ -5,4 +5,6 @@
 	```Ruby
 	gem 'devise'
 	```
-	```Ruby bundle install````
+	```Ruby
+	bundle install
+	```
