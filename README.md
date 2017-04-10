@@ -62,9 +62,28 @@
 3. Go to ```config/environments/development.rb``` and set the mailer configurations. Possible configurations can be like:
 	```Ruby
 	# Devise related configuration
+	...
+	config.action_mailer.raise_delivery_errors = true
+	...
 	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+	config.action_mailer.delivery_method = :smtp
+	config.action_mailer.smtp_settings = {
+		address: “smtp.gmail.com”,
+		port: 587,
+		domain: ENV[MOCMON_MAIL_DOMAIN],
+		authentication: “plain”,
+		enable_starttls_auto: true,
+		user_name: ENV[“MOCMON_MAIL_USERNAME”],
+		password: ENV[“MOCMON_MAIL_PASSWORD”]
+	}
 	```
-
+	Set following parameter in ```config/initializers/devise.rb``` in order to set the from field of mails:
+	```Ruby
+	config.mailer_sender = 'mocmon.automailsender.NOREPLY@gmail.com'
+	```
+	For gmail specific cases, set allow less secure parameters flag from security settings:
+	![alt tag](readme_images/GmailLessSecureApplications.png)
+	*Similarly for production ```config/environments/production.rb``` should be modified!*
 4. Run following command to generate the ```User``` model. 
 	```Ruby
 	rails generate devise User
