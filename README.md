@@ -4,6 +4,8 @@
 
 	```Gemfile```
 	```Ruby
+	gem 'haml'
+	gem 'haml-rails'
 	gem 'mysql2'
 	gem 'devise'
 	```
@@ -13,6 +15,9 @@
 2. Generate devise objects
 	```Ruby
 	$ rails generate devise:install
+	```
+	Gives following output:
+	```Ruby
 	Running via Spring preloader in process 5627
 			create  config/initializers/devise.rb
 			create  config/locales/devise.en.yml
@@ -180,4 +185,33 @@
 	+------------------------+--------------+------+-----+---------+----------------+
 	17 rows in set (0,00 sec)
 	```
- 
+	Arrange the root directory that will be used after succesfull login:
+	- Generate the controller that will handle successful login. (At this point you can also use your existing controllers or generate a scaffold as well):
+	```Ruby
+	rails g controller home
+	```
+	- Generate a route named ```root``` which will be automaticall used after successfull login:
+	```config/routes.rb```:
+	```Ruby
+	root to: 'home#index'
+	```
+	```Ruby
+	rake routes
+	```
+	```
+	root GET    /                                 home#index
+	```
+	
+6. Now we are ready to use following helper methods that Devise had generated within our controller files:
+	- We can place following call to any place that we want to protect by user authentication. A good place is ApplicationController since it is inherited by all controller classes.
+	```Ruby
+	protect_from_forgery with: :exception, prepend: true
+	before_action :authenticate_user!
+	```
+	- You can also use following helpers in your controller files (remember, the text "user" comes from prepared model name, if you use some other name it is changed accordingly):
+	```Ruby
+	user_signed_in?
+	current_user
+	user_session
+	```
+	- 
