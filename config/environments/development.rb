@@ -53,7 +53,7 @@ Rails.application.configure do
 	config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
 	# Devise related configuration
-	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+	config.action_mailer.default_url_options = { protocol: 'https', host: 'localhost', port: 3000 }
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
 		address: 'smtp.gmail.com',
@@ -64,4 +64,11 @@ Rails.application.configure do
 		user_name: ENV['MOCMON_MAIL_USERNAME'],
 		password: ENV['MOCMON_MAIL_PASSWORD']
 	}
+
+	config.to_prepare { Devise::SessionsController.force_ssl }
+	config.to_prepare { Devise::RegistrationsController.force_ssl }
+	config.to_prepare { Devise::PasswordsController.force_ssl }
+	config.force_ssl = true
+	config.ssl_options = {  redirect: { status: 307, port: 81 } }
+	config.ssl_options = { hsts: { preload: true } }
 end

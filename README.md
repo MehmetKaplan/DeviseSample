@@ -65,7 +65,7 @@
 	...
 	config.action_mailer.raise_delivery_errors = true
 	...
-	config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+	config.action_mailer.default_url_options = { protocol: 'https', host: 'localhost', port: 3000 }
 	config.action_mailer.delivery_method = :smtp
 	config.action_mailer.smtp_settings = {
 		address: “smtp.gmail.com”,
@@ -79,7 +79,7 @@
 	```
 	Set following parameter in ```config/initializers/devise.rb``` in order to set the from field of mails:
 	```Ruby
-	config.mailer_sender = 'mocmon.automailsender.NOREPLY@gmail.com'
+	config.mailer_sender = 'mocmon.automailer+NOREPLY@gmail.com'
 	```
 	For gmail specific cases, set allow less secure parameters flag from security settings:
 	![alt tag](readme_images/GmailLessSecureApplications.png)
@@ -233,4 +233,56 @@
 	current_user
 	user_session
 	```
-	- 
+7. To use SSL
+	- A good roadmap is here: http://blog.bigbinary.com/2016/08/24/rails-5-adds-more-control-to-fine-tuning-ssl-usage.html
+	- Add following lines to ```config/environments/development.rb```, ```config/environments/production.rb```, ```config/environments/test.rb```.
+	```Ruby
+	config.to_prepare { Devise::SessionsController.force_ssl }
+	config.to_prepare { Devise::RegistrationsController.force_ssl }
+	config.to_prepare { Devise::PasswordsController.force_ssl }
+	config.force_ssl = true
+	config.ssl_options = {  redirect: { status: 307, port: 81 } }
+	config.ssl_options = { hsts: { preload: true } }
+	```
+	- Arranging certificates:
+		- For production enviroments you must buy certificates.
+		- For development enviroments you can follow these steps:
+			- Insert following files to your ```.gitignore``` file:
+			```git
+			server.pass.key
+			server.key
+			server.csr
+			server.crt
+			```
+			- Run
+			```
+			openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
+			```
+			This will generate ```server.pass.key``` file.
+			- Run
+			```
+			openssl rsa -passin pass:x -in server.pass.key -out server.key
+			```
+			This will generate ```server.key``` file.
+			- Run
+			```
+			rm server.pass.key
+			```
+			- Run
+			```
+			openssl req -new -key server.key -out server.csr
+			```
+			Answer the coming questions.
+			- Run
+			```
+			openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
+			```
+			This generates the SSL certificate. The file ```server.crt``` is the certificate.
+			- Run
+			```
+			echo "127.0.0.1 localhost.ssl" | sudo tee -a /etc/hosts
+			```
+			- Run
+			```
+			puma -b 'ssl://127.0.0.1:3000?key=server.key&cert=server.crt'
+			```

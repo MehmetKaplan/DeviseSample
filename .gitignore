@@ -1,6 +1,11 @@
 log
 tmp
 config/database.yml
+server.pass.key
+server.key
+server.csr
+server.crt
+
 
 *.rbc
 capybara-*.html
