@@ -220,7 +220,7 @@
 	```
 	root GET    /                                 home#index
 	```
-	
+
 6. Now we are ready to use following helper methods that Devise had generated within our controller files:
 	- We can place following call to any place that we want to protect by user authentication. A good place is ApplicationController since it is inherited by all controller classes.
 	```Ruby
@@ -236,6 +236,8 @@
 7. To use SSL
 	- A good roadmap is here: http://blog.bigbinary.com/2016/08/24/rails-5-adds-more-control-to-fine-tuning-ssl-usage.html
 	- Add following lines to ```config/environments/development.rb```, ```config/environments/production.rb```, ```config/environments/test.rb```.
+
+	*THE FIRST THREE COMING FROM DEVISE, CAN WE OMIT IF WE DO NOT USE DEVISE???*
 	```Ruby
 	config.to_prepare { Devise::SessionsController.force_ssl }
 	config.to_prepare { Devise::RegistrationsController.force_ssl }
