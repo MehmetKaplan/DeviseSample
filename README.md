@@ -276,40 +276,41 @@
 			```
 
 			- Run
-			```
+			```Bash
 			openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
 			```
 			This will generate ```server.pass.key``` file.
 
 			- Run
-			```
+			```Bash
 			openssl rsa -passin pass:x -in server.pass.key -out server.key
 			```
+
 			This will generate ```server.key``` file.
 
 			- Run
-			```
+			```Bash
 			rm server.pass.key
 			```
 
 			- Run
-			```
+			```Bash
 			openssl req -new -key server.key -out server.csr
 			```
 			Answer the coming questions.
 
 			- Run
-			```
+			```Bash
 			openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 			```
 			This generates the SSL certificate. The file ```server.crt``` is the certificate.
 
 			- Run
-			```
+			```Bash
 			echo "127.0.0.1 localhost.ssl" | sudo tee -a /etc/hosts
 			```
 
 			- Run
-			```
+			```Bash
 			puma -b 'ssl://127.0.0.1:3000?key=server.key&cert=server.crt'
 			```
