@@ -58,6 +58,16 @@
 	3. In order to display devise messages, ensure your views have "notice" and "alert" flash messages.
 	4. You can use devise templates by running command ```rails g devise:views```
 
+		If you use item 4 you can use following commands to convert views to HAML:
+		```Bash
+		gem install html2haml
+		for file in app/views/devise/**/*.erb; do html2haml -e $file ${file%erb}haml && rm $file; done
+		```
+		Or alternatively to SLIM:
+		```Bash
+		gem install html2slim
+		for file in app/views/devise/**/*.erb; do erb2slim $file ${file%erb}slim && rm $file; done
+		```
 
 3. Go to ```config/environments/development.rb``` and set the mailer configurations. Possible configurations can be like:
 	```Ruby
