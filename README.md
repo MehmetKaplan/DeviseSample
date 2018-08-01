@@ -277,13 +277,13 @@
 
 			- Run
 			```Bash
-			openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
+			openssl genrsa -des3 -passout pass:[PASSWORD] -out server.pass.key 2048
 			```
 			This will generate ```server.pass.key``` file.
 
 			- Run
 			```Bash
-			openssl rsa -passin pass:x -in server.pass.key -out server.key
+			openssl rsa -passin pass:[PASSWORD] -in server.pass.key -out server.key
 			```
 
 			This will generate ```server.key``` file.
